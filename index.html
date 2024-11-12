@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 40px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #ff4444;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-ball {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle at center, rgba(255, 68, 68, 0.2), rgba(255, 68, 68, 0));
+            border-radius: 50%;
+            animation: floatBall 15s infinite ease-in-out;
+        }
+
+        @keyframes floatBall {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            25% { transform: translate(100px, 50px) scale(1.2); opacity: 0.6; }
+            50% { transform: translate(0, 100px) scale(1); opacity: 0.3; }
+            75% { transform: translate(-100px, 50px) scale(1.2); opacity: 0.6; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+        }
+
+        .casualties-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle at center, rgba(255, 68, 68, 0.15), rgba(255, 68, 68, 0));
+            border-radius: 50%;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #ff4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 80px 40px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background-attachment: fixed;
+        }
+
+        #casualties {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        #changes {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        #legacy {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .section-content {
+            background: rgba(10, 10, 10, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            z-index: 1;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ff4444;
+        }
+
+        .section p, .section li {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .stat {
+            background: rgba(255, 68, 68, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #ff4444;
+        }
+
+        ul {
+            list-style-position: inside;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div>
+            <span style="font-size: 1.5rem; font-weight: bold;">WWI Impact</span>
+        </div>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#casualties">Casualties</a>
+            <a href="#changes">Changes</a>
+            <a href="#legacy">Legacy</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-ball"></div>
+        <div class="hero-content">
+            <h1>World War I</h1>
+            <p>The Great War that reshaped human history</p>
+            <p style="font-size: 1rem; margin-top: 20px;">1914 - 1918</p>
+        </div>
+    </section>
+
+    <section class="section" id="casualties">
+        <div class="casualties-particles" id="particles-js"></div>
+        <div class="section-content">
+            <h2>Human Cost</h2>
+            <div class="stat">
+                <p>Military Deaths: ~9.7 million</p>
+                <p>Civilian Deaths: ~10 million</p>
+                <p>Total Wounded: ~21 million</p>
+            </div>
+            <p>The First World War represented an unprecedented scale of human loss, forever changing the way societies viewed warfare and international relations.</p>
+        </div>
+    </section>
+
+    <section class="section" id="changes">
+        <div class="section-content">
+            <h2>Global Changes</h2>
+            <ul>
+                <li>Collapse of four major empires</li>
+                <li>Rise of new nation-states</li>
+                <li>Women's suffrage movement acceleration</li>
+                <li>Industrial and technological revolution</li>
+                <li>New world order emergence</li>
+            </ul>
+            <p>The war catalyzed dramatic social, political, and technological changes that would define the 20th century.</p>
+        </div>
+    </section>
+
+    <section class="section" id="legacy">
+        <div class="section-content">
+            <h2>Lasting Legacy</h2>
+            <p>The aftermath of World War I laid the groundwork for:</p>
+            <ul>
+                <li>The League of Nations and modern international diplomacy</li>
+                <li>Major advances in medical treatment and technology</li>
+                <li>Fundamental changes in warfare and military strategy</li>
+                <li>The reshaping of global power dynamics</li>
+                <li>The seeds of World War II</li>
+            </ul>
+        </div>
+    </section>
+
+    <script>
+        // Create multiple particles for the casualties section
+        function createParticles() {
+            const particlesContainer = document.querySelector('.casualties-particles');
+            const numberOfParticles = 15;
+
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random size between 100px and 200px
+                const size = Math.random() * 100 + 100;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random starting position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                particle.style.left = `${x}%`;
+                particle.style.top = `${y}%`;
+                
+                // Random translation
+                const tx = (Math.random() - 0.5) * 300;
+                const ty = (Math.random() - 0.5) * 300;
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                // Random animation delay
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+    </script>
+</body>
+</html>
